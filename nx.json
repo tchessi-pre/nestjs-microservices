@@ -35,7 +35,11 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/api-gateway-e2e/**/*"]
+      "exclude": [
+        "apps/api-gateway-e2e/**/*",
+        "apps/auth-microservice-e2e/**/*",
+        "apps/payments-microservice-e2e/**/*"
+      ]
     }
   ],
   "nxCloudAccessToken": "YzVjMzAwOGEtOWRjNC00MjhhLTkzOTUtYjI3NDc5ZGUxYWY3fHJlYWQtd3JpdGU="
