@@ -4,12 +4,47 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
+
   kafka:
     image: wurstmeister/kafka
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  db_auth:
+    image: postgres
+    environment:
+      POSTGRES_DB: authdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+  db_payment:
+    image: postgres
+    environment:
+      POSTGRES_DB: paymentdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+
+  auth_service:
+    build: ./apps/auth-microservice
     depends_on:
-      - zookeeper
+      - kafka
+      - db_auth
+
+  payment_service:
+    build: ./apps/payments-microservice
+    depends_on:
+      - kafka
+      - db_payment
+
+  api-gateway:
+    build: ./apps/api-gateway
+    depends_on:
+      - auth_service
+      - payment_service
+    ports:
+      - "4000:4000"

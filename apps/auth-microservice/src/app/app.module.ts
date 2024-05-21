@@ -9,4 +9,4 @@ import { UsersRepository } from './users.repository';
   controllers: [AppController],
   providers: [AppService, UsersRepository],
 })
-export class AppModule {}
+export class AppModule { }
