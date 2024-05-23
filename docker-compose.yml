@@ -1,4 +1,5 @@
 version: '3.7'
+
 services:
   zookeeper:
     image: wurstmeister/zookeeper
@@ -30,19 +31,25 @@ services:
       POSTGRES_PASSWORD: password
 
   auth_service:
-    build: ./apps/auth-microservice
+    build:
+      context: .
+      dockerfile: ./apps/auth-microservice/Dockerfile
     depends_on:
       - kafka
       - db_auth
 
   payment_service:
-    build: ./apps/payments-microservice
+    build:
+      context: .
+      dockerfile: ./apps/payments-microservice/Dockerfile
     depends_on:
       - kafka
       - db_payment
 
   api-gateway:
-    build: ./apps/api-gateway
+    build:
+      context: .
+      dockerfile: ./apps/api-gateway/Dockerfile
     depends_on:
       - auth_service
       - payment_service

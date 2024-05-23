@@ -2,7 +2,16 @@
   "name": "@nestjs-microservices/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx build",
+    "build:auth-microservice": "nx build auth-microservice",
+    "build:payments-microservice": "nx build payments-microservice",
+    "build:api-gateway": "nx build api-gateway",
+    "start": "nx serve",
+    "start:auth-microservice": "nx serve auth-microservice",
+    "start:payments-microservice": "nx serve payments-microservice",
+    "start:api-gateway": "nx serve api-gateway"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^10.0.2",
